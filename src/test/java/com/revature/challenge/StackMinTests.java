@@ -58,7 +58,7 @@ public class StackMinTests {
         stack.pop();
         stack.pop();
 
-        int expected = 2;
+        int expected = 8;
         long startTime = System.currentTimeMillis();
         int actual = stack.getMin();
         long endTime = System.currentTimeMillis();
@@ -72,15 +72,14 @@ public class StackMinTests {
     @Order(4)
     void test_case_four_positive() {
 
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
         stack.push(4);
+        stack.push(3);
+        stack.push(2);
+        stack.push(1);
 
         stack.pop();
         stack.pop();
-        stack.pop();
-        stack.pop();
+
 
         int expected = 3;
         long startTime = System.currentTimeMillis();
@@ -90,6 +89,33 @@ public class StackMinTests {
         assertThat(actual).isEqualTo(expected);
 
         System.out.println("Program Run Time: " + (endTime - startTime));
+
+    }
+
+    @Test
+    @Order(5)
+    void test_case_five_positive() {
+
+        stack.push(2);
+        stack.push(1);
+        stack.push(2);
+        stack.push(1);
+
+        int expected = 1;
+        int actual = stack.getMin();
+        assertThat(actual).isEqualTo(expected);
+
+        stack.pop();
+        stack.pop();
+
+        actual = stack.getMin();
+        assertThat(actual).isEqualTo(expected);
+
+        stack.pop();
+        expected = 2;
+        actual = stack.getMin();
+
+        assertThat(actual).isEqualTo(expected);
 
     }
 }

@@ -1,43 +1,33 @@
 package com.revature.challenge;
 
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
+import java.util.Stack;
 
 public class StackMin {
 
     private int min;
     private int numOfElements = 0;
-    private LinkedList<Integer> stack;
-    private LinkedList<Integer> minList;
+    private Stack<Integer> stack;
+    private Stack<Integer> minList;
 
 
     public StackMin() {
-        this.stack = new LinkedList<>();
-        this.minList = new LinkedList<>();
+        this.stack = new Stack<>();
+        this.minList = new Stack<>();
     }
 
 
     public void push(Integer num) {
         if(isEmpty()) {
-            minList.add(num);
+            minList.push(num);
             min = num;
         } else {
-            if(num < min)  {
+            if(num <= min)  {
                 min = num;
-                minList.clear();
-                minList.add(min);
-            } else {
-                if(minList.peekLast() == min) {
-                    minList.add(num);
-                } else if(num < minList.peekLast()) {
-                    minList.removeLast();
-                    minList.add(num);
-                } else {
-                    minList.add(num);
-                }
+                minList.push(min);
             }
         }
-        stack.add(num);
+        stack.push(num);
         numOfElements++;
     }
 
@@ -45,10 +35,10 @@ public class StackMin {
         if(isEmpty())  {
             throw new NoSuchElementException("Stack is currently empty. Unable to access null value.");
         } else {
-            int fifo = stack.removeFirst();
+            int fifo = stack.pop();
 
-            if(fifo == min && !stack.contains(min)) {
-                minList.removeFirst();
+            if(fifo == min) {
+                minList.pop();
                 min = minList.peek();
             }
             numOfElements--;
